@@ -17,7 +17,7 @@
 ## 二、安装
 
 ```
-pip install shreports
+pip install shreport
 ```
 
 ## 三、功能说明
@@ -50,7 +50,7 @@ pdfurls(code)
 
 
 ```python
-from shreports import SH
+from shreport import SH
 
 cookies = {"Cookie": '您的cookies'}
 sh = SH(cookies)
@@ -93,7 +93,7 @@ df.to_excel('上证交易所上市公司名录.xlsx')
 
 ```python
 from pathlib import Path
-from shreports import SH
+from shreport import SH
 
 cookies = {"Cookie": '您的cookies'}
 sh = SH(cookies)
@@ -129,7 +129,7 @@ Run
 
 
 ```python
-from shreports import SH
+from shreport import SH
 
 cookies = {"Cookie": '您的cookies'}
 sh = SH(cookies)
