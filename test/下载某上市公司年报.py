@@ -1,5 +1,5 @@
 from pathlib import Path
-from shreports import SH
+from shreport import SH
 
 cookies = {"Cookie": '您的cookies'}
 sh = SH(cookies)
