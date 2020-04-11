@@ -79,7 +79,6 @@ class SH(object):
             results = raw_data['result']
             for result in results:
                 URL = 'http://www.sse.com.cn' + result['URL']
-                if len('600000_2001_3.pdf')
                 if '_n.pdf' in URL:
                     URLs.append(URL)
                 elif '_3.pdf' in URL:
@@ -100,6 +99,11 @@ class SH(object):
         :param savepath:  存储的路径，建议使用相对路径
         :return:
         """
+
+        path = Path(savepath).joinpath(*('stocks', str(code)))
+        Path(path).mkdir(parents=True, exist_ok=True)
+
+
         print('=======请耐心等待，正在获取{}数据'.format(code))
         headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36',
                    'Referer': 'http://www.sse.com.cn/disclosure/listedinfo/regular/'}
@@ -110,10 +114,8 @@ class SH(object):
 
         for result in results:
             pdfname = result.url.split('/')[-1]
-
-            path = Path(savepath).joinpath(*('stocks', code))
-            Path(path).mkdir(parents=True, exist_ok=True)
             pdfpath = path.joinpath(pdfname)
+
             with open(pdfpath, 'wb') as f:
                 f.write(result.content)
                 print('已成功下载{}'.format(pdfname))
