@@ -2,7 +2,7 @@ from setuptools import setup
 import setuptools
 setup(
     name='shreport',     # 包名字
-    version='0.0.8',   # 包版本
+    version='0.1.0',   # 包版本
     description='上海证券交易所上市公司定期报告下载,项目地址 https://github.com/thunderhit/shreport',
     author='大邓',  # 作者
     author_email='thunderhit@qq.com',  # 邮箱
