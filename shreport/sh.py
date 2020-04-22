@@ -70,7 +70,7 @@ class SH(object):
         :param code:  股票代码
         :return: 返回DataFrame
         """
-        print('=======请耐心等待，正在获取{}定期报告披露信息========='.format(code))
+        print('正在获取{}定期报告披露信息'.format(code))
         datas = []
 
         headers = {
@@ -86,6 +86,7 @@ class SH(object):
             for result in results:
                 pdf = 'http://www.sse.com.cn' + result['URL']
                 if re.search('\d{6}_\d{4}_[13nz].pdf', pdf):
+
                     company = re.sub('[半年报|第三季度季报|第一季度季报|年报]', '', result['TITLE'])
                     _type = result['BULLETIN_TYPE']
                     year = result['BULLETIN_YEAR']
@@ -104,7 +105,7 @@ class SH(object):
         :param code:  股票代码
         :return: 年报pdf链接
         """
-        print('=======准备获取{}年报文件链接========'.format(code))
+        print('准备获取{}年报文件链接'.format(code))
         headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36',
                    'Referer': 'http://www.sse.com.cn/disclosure/listedinfo/regular/'}
         URLs = []
@@ -117,11 +118,12 @@ class SH(object):
             results = raw_data['result']
             for result in results:
                 URL = 'http://www.sse.com.cn' + result['URL']
-                if re.search('\d{6}-\d{4}-[13nz].pdf', URL):
+
+                if re.search('\d{6}_\d{4}_[13nz].pdf', URL):
                     URLs.append(URL)
                 else:
                     continue
-        print('=======年报文件链接已获取完毕=============')
+        print('        ',URLs)
         return URLs
 
 
@@ -138,7 +140,6 @@ class SH(object):
         Path(path).mkdir(parents=True, exist_ok=True)
 
 
-        print('=======请耐心等待，正在获取{}数据'.format(code))
         headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36',
                    'Referer': 'http://www.sse.com.cn/disclosure/listedinfo/regular/'}
 
@@ -153,11 +154,9 @@ class SH(object):
 
                 with open(pdfpath, 'wb') as f:
                     f.write(result.content)
-                    print('已成功下载{}'.format(pdfname))
+                    print('       已成功下载{}'.format(pdfname))
             except:
                 pass
-                
-            
 
 
 
