@@ -147,12 +147,17 @@ class SH(object):
         results = grequests.map(tasks)
 
         for result in results:
-            pdfname = result.url.split('/')[-1]
-            pdfpath = path.joinpath(pdfname)
+            try:
+                pdfname = result.url.split('/')[-1]
+                pdfpath = path.joinpath(pdfname)
 
-            with open(pdfpath, 'wb') as f:
-                f.write(result.content)
-                print('已成功下载{}'.format(pdfname))
+                with open(pdfpath, 'wb') as f:
+                    f.write(result.content)
+                    print('已成功下载{}'.format(pdfname))
+            except:
+                pass
+                
+            
 
 
 
