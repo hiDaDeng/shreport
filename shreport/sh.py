@@ -117,7 +117,7 @@ class SH(object):
             results = raw_data['result']
             for result in results:
                 URL = 'http://www.sse.com.cn' + result['URL']
-                if re.search('\d{6}-\d{4}-[13nz].pdf', URL).group():
+                if re.search('\d{6}-\d{4}-[13nz].pdf', URL):
                     URLs.append(URL)
                 else:
                     continue
