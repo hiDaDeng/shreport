@@ -1,4 +1,3 @@
-
 ## 一、简介
 
 ```
@@ -13,11 +12,13 @@
 能：
 
 1. 获取上证交易所所有公司目录
+
 2. 上市公司历年报告(季报、半年报、年报)
+
+    
 
 **使用演示视频**
 [B站:如何用Python批量下载上交所上市公司的年报pdf文件](https://www.bilibili.com/video/BV15A411h7RJ)
-
 
 ## 二、安装
 
@@ -32,27 +33,34 @@ companys()
   上证所有上市公司名录，公司名及股票代码
   :return: 返回DataFrame
 
-download(code, savepath)
-  下载上市公司的所有季度报告、半年报、年报pdf文件
-  :param code:  上市公司股票代码
-  :param savepath:  存储的路径，建议使用相对路径
-  :return:
- 
 pdfurls(code)
-  获取年报文件下载链接
+  仅获取定期报告pdf下载链接
   :param code:  股票代码
   :return: 年报pdf链接
+  
+disclosure(self, code)
+   获得该公司的股票代码、报告类型、年份、定期报告披露日期、定期报告pdf下载链接, 返回DataFrame
+  :param code:  股票代码
+  
+  
+download(code, savepath)
+  下载该公司（code）的所有季度报告、半年报、年报pdf文件
+  :param code:  上市公司股票代码
+  :param savepath:  数据存储所在文件夹的路径，建议使用相对路径
+ 
 ```
 
 
 
 ## 四、快速入门
 
-一定要先获得cookies后才能使用下面的所有代码，这里先直接看代码使用情况，cookies获取可见文档    **五、获取cookies**
+一定要先获得cookies后才能使用下面的所有代码，这里先直接看代码使用情况，cookies获取可见文档    
+
+
+
+五、获取cookies**
 
 ### 4.1  获取上证交易所上市公司目录
-
-
 
 ```python
 from shreport import SH
@@ -60,27 +68,23 @@ from shreport import SH
 cookies = {"Cookie": '您的cookies'}
 sh = SH(cookies)
 df = sh.companys()
-df.head(10)
+
+#将查询结果存储
+#df.to_excel('上证交易所上市公司名录.xlsx')
+
+#显示前5条数据
+df.head()
 ```
 
 Run
 
-```
--  --------  ------
-     name     code
-0  浦发银行  600000
-1  白云机场  600004
-2  东风汽车  600006
-3  中国国贸  600007
-4  首创股份  600008
--  --------  ------
-```
-
-代码中的sh.companys()获取的是DataFrame数据类型，所以大家还可以自己存储成excel
-
-```
-df.to_excel('上证交易所上市公司名录.xlsx')
-```
+| name     | code   |
+| :------- | :----- |
+| 浦发银行 | 600000 |
+| 白云机场 | 600004 |
+| 东风汽车 | 600006 |
+| 中国国贸 | 600007 |
+| 首创股份 | 600008 |
 
 
 
@@ -127,7 +131,48 @@ Run
 
 
 
-### 4.3 获取某公司的所有定期报告url
+### 4.3 获取某公司的所有定期报告相关信息
+
+如果暂时不想下载定期报告pdf文件，可以可以先获取某公司的
+
+- 股票代码
+- 报告类型
+- 年份
+- 定期报告披露日期
+- 定期报告pdf下载链接
+
+结果返回DataFrame
+
+```python
+from shreport import SH
+
+cookies = {"Cookie": '您的cookies'}
+sh = SH(cookies)
+
+
+#获取浦发银行披露信息
+df = sh.disclosure(code='600000')
+
+#存储数据
+#df.to_excel('600000.xlsx')
+
+#前5条信息
+df.head()
+```
+
+Run
+
+| company  | code   | type         | year | date       | pdf                                                          |
+| :------- | :----- | :----------- | :--- | :--------- | :----------------------------------------------------------- |
+| 浦发银行 | 600000 | 半年报       | 2000 | 2000-07-28 | http://www.sse.com.cn/disclosure/listedinfo/announcement/c/600000_2000_1.pdf |
+| 浦发银行 | 600000 | 第三季度季报 | 2002 | 2002-10-30 | http://www.sse.com.cn/disclosure/listedinfo/announcement/c/2002-10-30/600000_2002_3.pdf |
+| 浦发银行 | 600000 | 半年报       | 2002 | 2002-08-17 | http://www.sse.com.cn/disclosure/listedinfo/announcement/c/2002-08-17/600000_2002_z.pdf |
+| 浦发银行 | 600000 | 第一季度季报 | 2002 | 2002-04-27 | http://www.sse.com.cn/disclosure/listedinfo/announcement/c/600000_2002_1.pdf |
+| 浦发银行 | 600000 | 年报         | 2001 | 2002-03-21 | http://www.sse.com.cn/disclosure/listedinfo/announcement/c/600000_2001_n.pdf |
+
+
+
+### 4.4 获取某公司的所有定期报告url
 
 如果暂时不想下载定期报告pdf文件，可以只得到该公司所有的报告文件链接
 
@@ -172,7 +217,7 @@ Run
 2. 按F12（mac按option+command+I)打开开发者工具的Network
 3. 刷新网页，耐心寻找与www.sse.com.cn有关的任意网址，找到cookies
 
-![](/Users/thunderhit/Desktop/shreport/img/cookies.gif)
+![](img/cookies.gif)
 
 ## 如果
 
@@ -197,7 +242,7 @@ Run
 
 - [知乎专栏：数据科学家](https://zhuanlan.zhihu.com/dadeng)
 
-      
+  ​    
 
 ## 支持一下
 

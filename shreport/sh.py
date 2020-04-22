@@ -8,6 +8,7 @@ import pandas as pd
 import requests
 import grequests
 import datetime
+import csv
 import json
 from pathlib import Path
 import warnings
@@ -35,6 +36,8 @@ class SH(object):
                 break
         return [(d1, d2) for d1, d2 in zip(dates, dates[1:])]
 
+
+
     def companys(self):
         """
         上证所有上市公司名录，公司名及股票代码
@@ -60,9 +63,44 @@ class SH(object):
         df = pd.DataFrame(stocks, columns=['name', 'code'])
         return df
 
+
+    def disclosure(self, code):
+        """
+        获得该公司的股票代码、报告类型、年份、定期报告披露日期、定期报告pdf下载链接，返回DataFrame。
+        :param code:  股票代码
+        :return: 返回DataFrame
+        """
+        print('=======请耐心等待，正在获取{}定期报告披露信息========='.format(code))
+        datas = []
+
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36',
+            'Referer': 'http://www.sse.com.cn/disclosure/listedinfo/regular/'}
+        base = 'http://query.sse.com.cn/security/stock/queryCompanyBulletin.do?isPagination=true&productId={code}&securityType=0101%2C120100%2C020100%2C020200%2C120200&reportType2=DQBG&reportType=&beginDate={beginDate}&endDate={endDate}&pageHelp.pageSize=25&pageHelp.pageCount=50&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=5'
+        dateranges = self.date_ranges()
+        for begin, end in dateranges:
+            url = base.format(code=code, beginDate=begin, endDate=end)
+            resp = requests.get(url, headers=headers, cookies=self.cookies)
+            raw_data = json.loads(resp.text)
+            results = raw_data['result']
+            for result in results:
+                pdf = 'http://www.sse.com.cn' + result['URL']
+                if re.search('\d{6}_\d{4}_[13nz].pdf', pdf):
+                    company = re.sub('[半年报|第三季度季报|第一季度季报|年报]', '', result['TITLE'])
+                    _type = result['BULLETIN_TYPE']
+                    year = result['BULLETIN_YEAR']
+                    date = result['SSEDATE']
+                    data = [company, code, _type, year, date, pdf]
+                    datas.append(data)
+
+        df = pd.DataFrame(datas, columns=['company','code', 'type', 'year', 'date', 'pdf'])
+        return df
+
+
+
     def pdfurls(self, code):
         """
-        获取年报文件下载链接
+        仅获取定期报告pdf下载链接
         :param code:  股票代码
         :return: 年报pdf链接
         """
@@ -79,28 +117,24 @@ class SH(object):
             results = raw_data['result']
             for result in results:
                 URL = 'http://www.sse.com.cn' + result['URL']
-                if '_n.pdf' in URL:
-                    URLs.append(URL)
-                elif '_3.pdf' in URL:
-                    URLs.append(URL)
-                elif '_1.pdf' in URL:
-                    URLs.append(URL)
-                elif '_z.pdf' in URL:
+                if re.search('\d{6}-\d{4}-[13nz].pdf', URL).group():
                     URLs.append(URL)
                 else:
                     continue
         print('=======年报文件链接已获取完毕=============')
         return URLs
 
+
+
     def download(self, code, savepath):
         """
-        下载上市公司的所有季度报告、半年报、年报pdf文件
+        下载该公司（code）的所有季度报告、半年报、年报pdf文件
         :param code:  上市公司股票代码
-        :param savepath:  存储的路径，建议使用相对路径
+        :param savepath:  数据存储所在文件夹的路径，建议使用相对路径
         :return:
         """
 
-        path = Path(savepath).joinpath(*('stocks', str(code)))
+        path = Path(savepath).joinpath(*('disclosure', 'reports', str(code)))
         Path(path).mkdir(parents=True, exist_ok=True)
 
 
