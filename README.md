@@ -234,16 +234,14 @@ Run
 
 
 
-## 更多
+
+# 更多
 
 - [B站:大邓和他的python](https://space.bilibili.com/122592901/channel/detail?cid=66008)
-
-- 公众号：大邓和他的python
-
+- **公众号：大邓和他的python**
 - [知乎专栏：数据科学家](https://zhuanlan.zhihu.com/dadeng)
 
-  ​    
 
-## 支持一下
+<br>
 
-![](img/my_zanshang_qrcode.jpg)
+![](img/大邓和他的Python.png)
