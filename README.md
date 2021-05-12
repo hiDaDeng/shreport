@@ -16,15 +16,28 @@
 2. 上市公司历年报告(季报、半年报、年报)
 
     
+<br>
+
+
 
 **使用演示视频**
 [B站:如何用Python批量下载上交所上市公司的年报pdf文件](https://www.bilibili.com/video/BV15A411h7RJ)
+
+<br>
+
+<br>
+
+
 
 ## 二、安装
 
 ```
 pip install shreport
 ```
+
+<br>
+<br>
+
 
 ## 三、功能说明
 
@@ -50,15 +63,21 @@ download(code, savepath)
  
 ```
 
+<br>
+<br>
+
 
 
 ## 四、快速入门
 
 一定要先获得cookies后才能使用下面的所有代码，这里先直接看代码使用情况，cookies获取可见文档    
 
+<br>
+<br>
 
 
-五、获取cookies**
+
+## 五、获取cookies**
 
 ### 4.1  获取上证交易所上市公司目录
 
@@ -86,6 +105,8 @@ Run
 | 中国国贸 | 600007 |
 | 首创股份 | 600008 |
 
+
+<br>
 
 
 ### 4.2下载某公司所有定期报告文件
@@ -129,6 +150,8 @@ Run
 已成功下载600000_2000_n.pdf
 ```
 
+<br>
+
 
 
 ### 4.3 获取某公司的所有定期报告相关信息
@@ -170,6 +193,8 @@ Run
 | 浦发银行 | 600000 | 第一季度季报 | 2002 | 2002-04-27 | http://www.sse.com.cn/disclosure/listedinfo/announcement/c/600000_2002_1.pdf |
 | 浦发银行 | 600000 | 年报         | 2001 | 2002-03-21 | http://www.sse.com.cn/disclosure/listedinfo/announcement/c/600000_2001_n.pdf |
 
+<br>
+
 
 
 ### 4.4 获取某公司的所有定期报告url
@@ -207,6 +232,11 @@ Run
 
 ```
 
+<br>
+
+<br>
+
+
 
 
 ## 五、获取cookies
@@ -219,9 +249,15 @@ Run
 
 ![](img/cookies.gif)
 
-## 如果
 
-如果您是经管人文社科专业背景，编程小白，面临海量文本数据采集和处理分析艰巨任务，个人建议学习[《python网络爬虫与文本数据分析》](https://ke.qq.com/course/482241?tuin=163164df)视频课。作为文科生，一样也是从两眼一抹黑开始，这门课程是用五年时间凝缩出来的。自认为讲的很通俗易懂o(*￣︶￣*)o，
+<br>
+
+<br>
+
+
+# 如果
+
+如果您是经管人文社科专业背景，编程小白，面临海量文本数据采集和处理分析艰巨任务，可以参看[《python网络爬虫与文本数据分析》](https://ke.qq.com/course/482241?tuin=163164df)视频课。作为文科生，一样也是从两眼一抹黑开始，这门课程是用五年时间凝缩出来的。自认为讲的很通俗易懂o(*￣︶￣*)o，
 
 - python入门
 - 网络爬虫
@@ -232,16 +268,21 @@ Run
 
 感兴趣的童鞋不妨 戳一下[《python网络爬虫与文本数据分析》](https://ke.qq.com/course/482241?tuin=163164df)进来看看~
 
+[![](img/课程.png)](https://ke.qq.com/course/482241?tuin=163164df)
 
+<br>
 
 
 # 更多
 
 - [B站:大邓和他的python](https://space.bilibili.com/122592901/channel/detail?cid=66008)
-- **公众号：大邓和他的python**
+
+- 公众号：大邓和他的python
+
 - [知乎专栏：数据科学家](https://zhuanlan.zhihu.com/dadeng)
 
-
 <br>
+
+
 
 ![](img/大邓和他的Python.png)
