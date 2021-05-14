@@ -4,7 +4,7 @@
 上海证券交易所上市公司定期报告下载,项目地址 https://github.com/thunderhit/shreport
 ```
 
-- github地址 https://github.com/thunderhit/shreport
+- github地址 https://github.com/hidadeng/shreport
 -  pypi地址 https://pypi.org/project/shreport
 
 
